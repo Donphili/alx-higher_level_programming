@@ -1,1 +1,1 @@
-#Python - if/else, loops, functions
+# this project consists of ,  if, else and loops in python
