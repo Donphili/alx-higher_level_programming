@@ -2,7 +2,7 @@
 
 def multiple_returns(sentence):
 
-    """Returns length of a string and its first character."""
+    """Returns the length of a string and its first character."""
 
     if sentence == "":
 

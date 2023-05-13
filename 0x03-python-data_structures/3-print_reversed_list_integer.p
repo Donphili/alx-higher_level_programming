@@ -2,7 +2,7 @@
 
 def print_reversed_list_integer(my_list=[]):
 
-    """Print every integers of a list in reverse order."""
+    """Print all integers of a list in reverse order."""
 
     if isinstance(my_list, list):
 

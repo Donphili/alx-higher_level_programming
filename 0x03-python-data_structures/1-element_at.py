@@ -1,8 +1,9 @@
-#!/usr/bin/pyn3
+
+#!/usr/bin/python3
 
 def element_at(my_list, idx):
 
-    """Retrives an element from a list."""
+    """Retrive an element from a list."""
 
     if idx < 0 or idx > (len(my_list) - 1):
 
