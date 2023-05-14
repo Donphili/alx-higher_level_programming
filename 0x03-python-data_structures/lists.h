@@ -1,28 +1,64 @@
+
+Untitled document
+0x03. Python - Data Structures: Lists, Tuples
+
+
+cd alx-higher_level_programming
+
+cd 0x03-Python-Data_Structures
+
+echo README.md
+
+ 
+
+vi lists.h
+
+
 #ifndef LISTS_H
+
 #define LISTS_H
+
+
 #include <stdio.h>
+
 #include <stdlib.h>
 
 
 /**
-* struct listint_s - singly linked list
-* @n: integer
-* @next: points to the next node
-* Description: singly linked list node structure
-*/
+
+ * struct listint_s - singly linked list
+
+ * @n: integer
+
+ * @next: points to the next node
+
+ *
+
+ * Description: singly linked list node structure
+
+ * for project
+
+ */
 
 typedef struct listint_s
 
 {
 
-        int n;
+  int n;
 
-        struct listint_s *next;
+  struct listint_s *next;
 
 } listint_t;
 
+
 size_t print_listint(const listint_t *h);
+
 listint_t *add_nodeint_end(listint_t **head, const int n);
+
 void free_listint(listint_t *head);
+
+
 int is_palindrome(listint_t **head);
-#endif /* LISTS_H */
+
+
+#endif /* LISTS_H
