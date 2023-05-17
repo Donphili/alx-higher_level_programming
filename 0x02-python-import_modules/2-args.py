@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import argv from sys
+from sys import argv
 
 def principal():
     print('{} argument'.format(len(argv) - 1), end='')
