@@ -1,73 +1,59 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include "lists.h"
-void reverse_list(listint_t **head);
-/**
-* reverse_list - ...
-* @head: ...
-* Return: ...
-*/
-void reverse_list(listint_t **head)
-{
-	listint_t *prev = NULL;
-	listint_t *curr = *head;
-	listint_t *new = NULL;
+#include <stdio.h>
 
-	while (curr)
-	{
-		new = curr->next;
-		curr->next = prev;
-		prev = curr;
-		curr = new;
-	}
-	*head = prev;
+int is_palindrome(listint_t **head)
+{
+listint_t *nhead, *tort, *hare, *ptort;
+listint_t *cut = NULL, *half, *it1, *it2;
+if (!head || !*head)
+return (1);
+nhead = *head;
+if (nhead->next != NULL)
+{
+for (hare = nhead, tort = nhead; hare != NULL && hare->next != NULL;
+ptort = tort, tort = tort->next)
+hare = hare->next->next;
+if (hare != NULL)
+{
+cut = tort;
+tort = tort->next;
+}
+ptort->next = NULL;
+half = tort;
+it1 = reverse_listint(&half);
+for (it2 = *head; it2; it1 = it1->next, it2 = it2->next)
+{
+if (it2->n != it1->n)
+return (0);
+}
+if (cut == NULL)
+ptort->next = half;
+else
+{
+ptort->next = cut;
+cut->next = half;
+}
+}
+return (1);
 }
 
 /**
-* is_palindrome - ...
-* @head: ...
-* Return: ...
+* reverse_listint - Reverses a linked list in place
+* @head: Pointer to the pointer pointing to the first item in the list
+* Return: The new head of the reversed list
 */
-int is_palindrome(listint_t **head)
+listint_t *reverse_listint(listint_t **head)
 {
-	listint_t *slow = *head, *fast = *head, *tmp = *head, *node = NULL;
-
-	if (*head == NULL || (*head)->next == NULL)
-	{
-		return (1);
-	}
-	while (1)
-	{
-		fast = fast->next->next;
-		if (!fast)
-		{
-			node = slow->next;
-			break;
-		}
-		if (!fast->next)
-		{
-			node = slow->next->next;
-			break;
-		}
-		slow = slow->next;
-	}
-	reverse_list(&node);
-	while (node && tmp)
-	{
-		if (tmp->n == node->n)
-		{
-			node = node->next;
-			tmp = tmp->next;
-		}
-		else
-		{
-			return (0);
-		}
-	}
-	if (!node)
-	{
-		return (1);
-	}
-	return (0);
+listint_t *next = NULL, *prev = NULL;
+if (!head || !*head)
+return (NULL);
+while ((*head)->next)
+{
+next = (*head)->next;
+(*head)->next = prev;
+prev = *head;
+*head = next;
+}
+(*head)->next = prev;
+return (*head);
 }
