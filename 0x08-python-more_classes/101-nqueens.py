@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-nqueens backtracking system to print the directions of n sovereigns on a nxn lattice to such an extent that they are all in non-going after positions
+nqueens backtracking program to print the coordinates of n queens
+on an nxn grid such that they are all in non-attacking positions
 """
 
 
