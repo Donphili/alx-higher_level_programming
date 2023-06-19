@@ -2,6 +2,8 @@
 """
 File: square.py
 Desc: This module contains a class; Square
+Author: Onyejekwe Philip (Donphili)
+Date Created: 19 jun 2023
 """
 
 from models.rectangle import Rectangle

@@ -2,6 +2,8 @@
 """
 File: rectangle.py
 Desc: This module contains a class; Rectangle
+Author: Onyejekwe Philip(Donphili)
+Date Created: 19 jun 2023
 """
 
 from models.base import Base
