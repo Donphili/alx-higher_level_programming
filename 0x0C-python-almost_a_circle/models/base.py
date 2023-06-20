@@ -1,20 +1,20 @@
 #!/usr/bin/python3
-"""Define a Base model class"""
-import json
+"""This module contains a class to serve as base for other classes"""
+
+
 import csv
-import turtle
+import json
 import os
+import turtle
 
 
 class Base:
-    """Represents a Base class,
-    which will be the base for all other classes in the project
-    """
+    """Represents base of all classes created """
 
     __nb_objects = 0
 
     def __init__(self, id=None):
-        """Initializes a new base class"""
+        """ """
         if id is not None:
             self.id = id
         else:
@@ -23,16 +23,19 @@ class Base:
 
     @staticmethod
     def to_json_string(list_dictionaries):
-        """returns the JSON string representation of list_dictionaries"""
-        if list_dictionaries == [] or list_dictionaries is None:
-            return ("[]")
+        """returns the JSON representation of list_dictionaries"""
+        if list_dictionaries is None or list_dictionaries == []:
+            return "[]"
+        if (type(list_dictionaries) != list or not
+                all(type(i) == dict for i in list_dictionaries)):
+            raise TypeError("list_dictionaries must be a list of dictionaries")
         return json.dumps(list_dictionaries)
 
     @classmethod
     def save_to_file(cls, list_objs):
-        """Write the JSON serialization of a list of objects to a file."""
-        filename = cls.__name__ + ".json"
-        with open(filename, "w") as jsonfile:
+        """Save JSON representation to file"""
+        file_name = cls.__name__ + ".json"
+        with open(file_name, "w") as jsonfile:
             if list_objs is None:
                 jsonfile.write("[]")
             else:
@@ -41,14 +44,20 @@ class Base:
 
     @staticmethod
     def from_json_string(json_string):
-        """Return the deserialization of a JSON string."""
-        if json_string is None or json_string == "[]":
-            return []
-        return json.loads(json_string)
+        """Returns list of JSON string representations"""
+        json_string_list = []
+
+        if json_string is not None and json_string != '':
+            if type(json_string) != str:
+                raise TypeError("json_string must be a string")
+            json_string_list = json.loads(json_string)
+
+        return json_string_list
 
     @classmethod
     def create(cls, **dictionary):
         """Returns an instance with all attributes already set"""
+        # create an instance of an existing class
         if cls.__name__ == 'Rectangle':
             dummy = cls(1, 1)
         elif cls.__name__ == 'Square':
@@ -76,6 +85,24 @@ class Base:
     @classmethod
     def save_to_file_csv(cls, list_objs):
         """Serializes list_objs and saves to file"""
+
+        # if (type(list_objs) != list and list_objs is not None
+        #    or not all(isinstance(i, cls) for i in list_objs)):
+
+        #     raise TypeError("list_objs must be a list of instances")
+
+        # file_name = cls.__name__ + ".csv"
+        # with open(file_name, 'w') as my_file:
+        #     if list_objs is not None:
+        #         list_objs = [i.todictionary for i in list_objs]
+        #         if cls.__name__ == 'Rectangle':
+        #             records = ['id', 'width', 'height', 'x', 'y']
+        #         elif cls.__name__ == 'Square':
+        #             records = ['id', 'size', 'x', 'y']
+        #         script = csv.DictWriter(my_file, fieldnames=records)
+        #         script.writeheader()
+        #         script.writerows(list_objs)
+
         filename = cls.__name__ + ".csv"
         with open(filename, "w", newline="") as csvfile:
             if list_objs is None or list_objs == []:
@@ -92,6 +119,25 @@ class Base:
     @classmethod
     def load_from_file_csv(cls):
         """Deserializes CSV format from a file"""
+
+        # file_name = cls.__name__ + ".csv"
+        # list_of_instances = []
+        # if os.path.exists(file_name):
+        #     with open(file_name, 'r') as my_file:
+        #         reader = csv.reader(my_file, delimiter=',')
+        #         if cls.__name__ == 'Rectangle':
+        #             records = ['id', 'width', 'height', 'x', 'y']
+        #         elif cls.__name__ == 'Square':
+        #             records = ['id', 'size', 'x', 'y']
+        #         for i, row in enumerate(reader):
+        #             if i > 0:
+        #                 x = cls(1, 1)
+        #                 for j, y in enumerate(row):
+        #                     if y:
+        #                         setattr(x, records[j], int(y))
+        #                 list_of_instances.append(x)
+        # return list_of_instances
+
         filename = cls.__name__ + ".csv"
         try:
             with open(filename, "r", newline="") as csvfile:

@@ -1,24 +1,42 @@
 #!/usr/bin/python3
-"""Defines a class Rectangle"""
+"""This module contains a rectangle class"""
+
 from models.base import Base
 
 
 class Rectangle(Base):
-    """Repreaents a class Rectangle that inherits from Base"""
+    """Represents a rectangle """
 
     def __init__(self, width, height, x=0, y=0, id=None):
-        """initialize class"""
+        """Initializes attributes of the object"""
         self.width = width
         self.height = height
         self.x = x
         self.y = y
         super().__init__(id)
 
+    # List of getter functions
     @property
     def width(self):
-        """retrives the width attribute"""
+        """Gets the value for width"""
         return self.__width
 
+    @property
+    def height(self):
+        """Gets the value for height"""
+        return self.__height
+
+    @property
+    def x(self):
+        """Gets the value for x"""
+        return self.__x
+
+    @property
+    def y(self):
+        """Gets the value for y"""
+        return self.__y
+
+    # List of setter functions
     @width.setter
     def width(self, value):
         """Sets the value for width"""
@@ -29,11 +47,6 @@ class Rectangle(Base):
             raise ValueError("width must be > 0")
 
         self.__width = value
-
-    @property
-    def height(self):
-        """retrives the height attribute"""
-        return self.__height
 
     @height.setter
     def height(self, value):
@@ -46,11 +59,6 @@ class Rectangle(Base):
 
         self.__height = value
 
-    @property
-    def x(self):
-        """retrives the x attribute"""
-        return self.__x
-
     @x.setter
     def x(self, value):
         """Sets the value for x"""
@@ -61,11 +69,6 @@ class Rectangle(Base):
             raise ValueError("x must be >= 0")
 
         self.__x = value
-
-    @property
-    def y(self):
-        """retrives the y attribute"""
-        return self.__y
 
     @y.setter
     def y(self, value):
@@ -79,26 +82,24 @@ class Rectangle(Base):
         self.__y = value
 
     def area(self):
-        """returns the area of the rectangle"""
-        return self.__width * self.__height
+        """Defines the area of the rectangle"""
+        return (self.__height * self.__width)
 
     def display(self):
-        """Print the rectangle using the # symbol"""
-        if self.__width == 0 or self.__height == 0:
+        """Displays the rectangle using # """
+        for y in range(self.y):
             print("")
-            return
-
-        [print("") for y in range(self.y)]
-        for h in range(self.height):
-            [print(" ", end="") for x in range(self.x)]
-            [print("#", end="") for w in range(self.width)]
-            print("")
+        for row in range(self.__height):
+            for x in range(self.x):
+                print(" ", end="")
+            for column in range(self.__width):
+                print("#", end="")
+            print()
 
     def __str__(self):
-        """Return the print() and str() representation of the Rectangle."""
-        return "[Rectangle] ({}) {}/{} - {}/{}".format(self.id,
-                                                       self.x, self.y,
-                                                       self.width, self.height)
+        """Defines a format for the string representation of the class"""
+        return f"[Rectangle] ({self.id}) {self.__x}/{self.__y} - \
+{self.__width}/{self.__height}"
 
     def update(self, *args, **kwargs):
         """Assigns an argument to each attribute"""
