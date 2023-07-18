@@ -1,0 +1,10 @@
+-- Lists the  records of 'second_table' of db 'hbtn_0c_0'
+-- D not list  rows without a 'name' value
+-- Results should display both score and name
+-- Records should be listed descending score
+-- db name will be passed as arg to mysql cmd
+-- Not allowed to use JOIN or UNION
+SELECT score, name
+FROM second_table
+HAVING name IS NOT NULL
+ORDER BY score DESC;
