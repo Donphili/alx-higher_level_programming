@@ -1,14 +1,43 @@
 #!/usr/bin/python3
 """
-mentions  10 commits (from the most recent to oldest) of the repository and user
-sent in as arguments
+Module to access  the GitHub API and uses the data
 """
-if __name__ == '__main__':
-    import requests
-    from sys import argv
-    r = requests.get('https://api.github.com/repos/{}/{}/commits'
-                     .format(argv[2], argv[1]))
-    commits = r.json()
-    for commit in commits[:10]:
-        print(commit.get('sha'), end=': ')
-        print(commit.get('commit').get('author').get('name'))
+import requests
+from requests.auth import HTTPBasicAuth
+from sys import argv
+
+
+def main(argv):
+    """
+    Function that list 10 commits (from the most recent to oldest)
+    of the repository.The first argument will be the repository name
+    and the second argument will be the owner name
+    """
+
+    def print_commits(i, commit_list):
+        """
+        List the commits, less than 10 commits
+        """
+        sha = commit_list[i].get('sha')
+        commit = commit_list[i].get('commit')
+        author = commit.get('author')
+        name = author.get('name')
+        print('{}: {}'.format(sha, name))
+
+    repo = argv[1]
+    owner = argv[2]
+    headers = {"Accept": "application/vnd.github.v3+json"}
+    response = requests.get('https://api.github.com/repos/' + owner +
+                            '/' + repo + '/commits', headers=headers)
+    commit_list = response.json()
+    size = len(commit_list)
+    if size < 10:
+        for i in range(0, size):
+            print_commits(i, commit_list)
+    else:
+        for i in range(0, 10):
+            print_commits(i, commit_list)
+
+
+if __name__ == "__main__":
+    main(argv)
